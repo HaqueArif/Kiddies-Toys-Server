@@ -31,18 +31,29 @@ async function run() {
 
     const toyCollection = client.db('littleWonderToys').collection('toys');
 
+    
+    
     app.get('/allToys', async(req, res) => {
       const cursor = toyCollection.find();
       const result = await cursor.toArray();
       res.send(result)
-    })
+    });
 
     app.get('/allToys/:id', async(req, res)=>{
       const id = req.params.id;
       const query = {_id : new ObjectId(id)}
       const result = await toyCollection.findOne(query)
       res.send(result)
-    })
+    });
+
+    
+
+    app.post('/allToys', async(req, res)=>{
+      const newToy = req.body;
+      console.log(newToy);
+      const result = await toyCollection.insertOne(newToy);
+      res.send(result);
+    });
 
     
     
