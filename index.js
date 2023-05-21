@@ -30,7 +30,11 @@ async function run() {
     await client.connect();
 
     const toyCollection = client.db('littleWonderToys').collection('toys');
+    const gallery = require('./data/gallery.json');
 
+    app.get('/gallery', (req, res) => {
+      res.send(gallery);
+    });
 
 
     app.get('/allToys', async (req, res) => {
